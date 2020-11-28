@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, TouchableHighlight } from "react-native";
 
-const Button = ({ title, onPress }) => {
+const Button = ({ style, title, onPress }) => {
   return (
-    <TouchableHighlight style={styles.button} onPress={onPress}>
+    <TouchableHighlight style={[style, styles.button]} onPress={onPress}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableHighlight>
   );
@@ -12,14 +12,19 @@ const Button = ({ title, onPress }) => {
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: "#C46210",
+    backgroundColor: "lightsalmon",
     color: "whitesmoke",
     justifyContent: "center",
-    padding: 20,
+    padding: 5,
+    borderRadius: 7,
+    width: "30%",
+    height: "25%",
+    marginTop: 15,
   },
   buttonText: {
     color: "whitesmoke",
     textTransform: "uppercase",
+    fontFamily: "Roboto_700Bold",
   },
 });
 

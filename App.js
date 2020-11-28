@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Image, View, Platform, StyleSheet } from "react-native";
+import { Platform, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-import Button from "./components/Button";
-import Screen from "./components/Screen";
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
+
+import { WorkSans_600SemiBold } from "@expo-google-fonts/work-sans";
+
+import Main from "./screens/Main";
 
 export default App = () => {
   const [image, setImage] = useState(null);
+  let [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+    WorkSans_600SemiBold,
+  });
 
   useEffect(() => {
     (async () => {
@@ -27,23 +41,20 @@ export default App = () => {
   };
 
   return (
-    <Screen>
-      <Button title="Wybierz zdjęcie" onPress={pickImage} />
-      {image && (
-        <Image
-          source={{ uri: image }}
-          style={styles.photo}
-          resizeMode="contain"
-        />
-      )}
-    </Screen>
+    // (<Screen>
+    //   <Button title="Wybierz zdjęcie" onPress={pickImage} />
+    //   {image && (
+    //     <Image
+    //       source={{ uri: image }}
+    //       style={styles.photo}
+    //       resizeMode="contain"
+    //     />
+    //   )}
+    // </Screen>)
+    fontsLoaded ? (
+      <Main onPress={pickImage} image={image} />
+    ) : (
+      <Text>Ładowanie</Text>
+    )
   );
 };
-
-const styles = StyleSheet.create({
-  photo: {
-    height: "100%",
-    width: "100%",
-    marginTop: 10,
-  },
-});
