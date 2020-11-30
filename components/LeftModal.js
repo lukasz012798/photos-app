@@ -39,7 +39,7 @@ const LeftModal = ({ onPress, image, colors, setColors, theme, setTheme }) => {
     menuContainer: {
       width: "90%",
       backgroundColor: `${theme ? "#fafafa" : "#333"}`,
-      marginTop: "40%",
+      marginTop: 50,
       borderRadius: 5,
       overflow: "hidden",
       alignSelf: "center",

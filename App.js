@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Platform, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as ScreenOrientation from "expo-screen-orientation";
 
 import {
   useFonts,
@@ -33,6 +34,7 @@ export default App = () => {
         }
       }
     })();
+    ScreenOrientation.unlockAsync();
   }, []);
 
   const pickImage = async () => {
