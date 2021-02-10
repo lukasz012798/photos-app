@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+
+import CameraRoll from "@react-native-community/cameraroll";
+
+import { captureRef } from "react-native-view-shot";
 
 import Button from "./Button";
 
 const Blur = ({ style, image, theme }) => {
   const [blurValue, setBlurValue] = useState(0);
+  const viewShotRef = useRef();
+  const saveImage = async () => {
+    try {
+      let result = await captureRef(viewShotRef, {
+        format: "png",
+      });
+      console.log(result);
+      let saveResult = await CameraRoll.save(result, {});
+      console.log(saveResult);
+    } catch (snapshotError) {
+      console.error(snapshotError);
+    }
+  };
   const styles = StyleSheet.create({
     blur: {
       backgroundColor: theme ? "white" : "#999",
@@ -63,6 +80,7 @@ const Blur = ({ style, image, theme }) => {
           style={styles.image}
           source={{ uri: image }}
           blurRadius={blurValue}
+          ref={viewShotRef}
         />
       </View>
       <View style={styles.buttons}>
@@ -70,7 +88,9 @@ const Blur = ({ style, image, theme }) => {
           <Button
             key={i}
             title={`${i * 10}%`}
-            onPress={() => setBlurValue(i)}
+            onPress={() => {
+              setBlurValue(i);
+            }}
             theme={theme}
           />
         ))}

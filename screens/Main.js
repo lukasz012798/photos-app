@@ -11,28 +11,31 @@ import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import Content from "../components/Content";
 import LeftModal from "../components/LeftModal";
 
-export default Main = ({ onPress, image }) => {
+export default Main = ({ onPress, onPressTakePhoto, image }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [colors, setColors] = useState(["tomato", "olive", "royalblue"]);
   const [theme, setTheme] = useState(true);
 
   const styles = StyleSheet.create({
-    addPhotoIconContainer: {
-      // backgroundColor: "red",
+    iconContainer: {
+      // backgroundColor: "blue",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      marginHorizontal: 20,
+      marginHorizontal: 5,
     },
+    takePhotoIconContainer: {},
     header: {
-      // height: 75,
+      // height: 175,
       width: "100%",
       paddingTop: 30,
       paddingBottom: 10,
       backgroundColor: theme ? "#2d78ea" : "#333",
       display: "flex",
       flexDirection: "row",
-      flexWrap: "wrap",
+      // backgroundColor: "red",
+      justifyContent: "center",
+      alignItems: "center",
     },
     headerText: {
       fontFamily: "Roboto_500Medium",
@@ -43,7 +46,7 @@ export default Main = ({ onPress, image }) => {
       // backgroundColor: "red",
       display: "flex",
       justifyContent: "center",
-      width: 200,
+      // width: 200,
       flexGrow: 1,
     },
     modal: {
@@ -55,7 +58,7 @@ export default Main = ({ onPress, image }) => {
       justifyContent: "center",
       alignItems: "center",
       paddingHorizontal: 20,
-      // backgroundColor: "red",
+      // backgroundColor: "green",
     },
   });
 
@@ -71,16 +74,29 @@ export default Main = ({ onPress, image }) => {
           </View>
         </TouchableHighlight>
         <View style={styles.headerTextContainer}>
-          <Text style={styles.headerText}>Wybierz zdjęcie</Text>
+          <Text style={styles.headerText}>
+            {image === null ? "Select image" : "Image editor"}
+          </Text>
         </View>
         <TouchableHighlight
           onPress={onPress}
-          style={styles.addPhotoIconContainer}
+          style={styles.iconContainer}
           underlayColor={theme ? "#2d78ea" : "#333"}
         >
           <MaterialIcons
-            name="add-a-photo"
+            name="camera-roll"
             size={30}
+            color={theme ? "white" : "#999"}
+          />
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={onPressTakePhoto}
+          style={[styles.iconContainer, styles.takePhotoIconContainer]}
+          underlayColor={theme ? "#2d78ea" : "#333"}
+        >
+          <MaterialIcons
+            name="photo-camera"
+            size={35}
             color={theme ? "white" : "#999"}
           />
         </TouchableHighlight>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Platform, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { StatusBar } from "expo-status-bar";
 
 import {
   useFonts,
@@ -42,6 +43,11 @@ export default App = () => {
     setImage(result.uri);
   };
 
+  const takePhoto = async () => {
+    let result = await ImagePicker.launchCameraAsync();
+    setImage(result.uri);
+  };
+
   return (
     // (<Screen>
     //   <Button title="Wybierz zdjęcie" onPress={pickImage} />
@@ -54,7 +60,10 @@ export default App = () => {
     //   )}
     // </Screen>)
     fontsLoaded ? (
-      <Main onPress={pickImage} image={image} />
+      <>
+        <StatusBar style="light" />
+        <Main onPress={pickImage} onPressTakePhoto={takePhoto} image={image} />
+      </>
     ) : (
       <Text>Ładowanie</Text>
     )
